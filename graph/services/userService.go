@@ -9,7 +9,7 @@ import (
 func (s *DbConnStruct) CreateUser(ctx context.Context, nu model.NewUser) (*model.User, error) {
 
 	u := gormmodel.NewUser{
-		Name:  nu.Email,
+		Name:  nu.Name,
 		Email: nu.Email,
 	}
 	err := s.db.Create(&u).Error
@@ -17,12 +17,12 @@ func (s *DbConnStruct) CreateUser(ctx context.Context, nu model.NewUser) (*model
 		return &model.User{}, err
 	}
 	return &model.User{
-		Name:  u.Email,
+		Name:  u.Name,
 		Email: u.Email,
 	}, nil
 }
 
-func (s *DbConnStruct) ViewUser(ctx context.Context)([]*model.User,error){
+func (s *DbConnStruct) ViewUser(ctx context.Context) ([]*model.User, error) {
 	var listUser []*gormmodel.NewUser
 	tx := s.db.WithContext(ctx)
 	err := tx.Find(&listUser).Error
@@ -30,8 +30,12 @@ func (s *DbConnStruct) ViewUser(ctx context.Context)([]*model.User,error){
 		return nil, err
 	}
 	var mUser []*model.User
-	for _,user := range listUser{
-		mUser{user}
+	for _, user := range listUser {
+		newUser := model.User{
+			Name:  user.Name,
+			Email: user.Email,
+		}
+		mUser = append(mUser, &newUser)
 	}
 
 	return mUser, nil

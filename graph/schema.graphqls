@@ -3,38 +3,38 @@
 # https://gqlgen.com/getting-started/
 
 type User{
-  id:ID!
+  id:ID
   name:String!
   email:String!
 }
 
 input NewUser{
-  id: ID!
+  id: ID
   name: String!
   email:String!
 }
 
 type Company{
-  companyId: ID!
+  companyId: ID
   name: String!
   city: String!
   jobs: [Job!]!
 }
 
 input NewCompany{
-  companyId: ID!
+  companyId: ID
   name: String!
   city: String!
 }
 
 type Job{
-  id: ID!
+  id: ID
   title: String!
   companyId: Int!
 }
 
 input NewJob{
-  id: ID!
+  id: ID
   title: String!
   # companyId: Company!
 }

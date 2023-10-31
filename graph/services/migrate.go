@@ -1,7 +1,7 @@
 package services
 
 import (
-	"assingment/graph/model"
+	gormmodel "assingment/graph/gormModel"
 	"errors"
 	"log"
 
@@ -23,7 +23,7 @@ func NewConn(dbInstance *gorm.DB) (*DbConnStruct, error) {
 func (s *DbConnStruct) AutoMigrate() error {
 
 	// AutoMigrate function will ONLY create tables, missing columns and missing indexes, and WON'T change existing column's type or delete unused columns
-	err := s.db.Migrator().AutoMigrate(&model.User{}, &model.Company{}, &model.Job{})
+	err := s.db.Migrator().AutoMigrate(&gormmodel.NewUser{}, &gormmodel.NewCompany{}, &gormmodel.NewJob{})
 	if err != nil {
 		// If there is an error while migrating, log the error message and stop the program
 		return err
