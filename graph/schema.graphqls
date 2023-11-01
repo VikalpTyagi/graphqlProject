@@ -18,13 +18,13 @@ type Company{
   companyId: ID
   name: String!
   city: String!
-  jobs: [Job!]!
 }
 
 input NewCompany{
   companyId: ID
   name: String!
   city: String!
+  jobs: [NewJob!]
 }
 
 type Job{
@@ -41,8 +41,11 @@ input NewJob{
 
 type Mutation{
   CreateUser(input: NewUser!): User! 
+  CreateCompany(input: NewCompany!): Company!
 }
 
 type Query{
   fetchAllUser: [User!]!
+  fetchCompanies: [Company!]!
+  fetchCompaniesById (input:ID!): Company!
 }

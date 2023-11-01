@@ -10,7 +10,7 @@ type NewCompany struct {
 	CompanyID string `json:"companyId"`
 	Name      string `json:"name"`
 	City      string `json:"city"`
-	Jobs	[]NewJob `json:"jobs" gorm:"foreignKey:CompanyId"`
+	Jobs	[]*NewJob `json:"jobs" gorm:"foreignKey:CompanyId"`
 }
 
 type NewUser struct {

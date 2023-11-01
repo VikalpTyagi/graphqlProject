@@ -7,6 +7,7 @@ package graph
 import (
 	"assingment/graph/model"
 	"context"
+	"fmt"
 )
 
 // CreateUser is the resolver for the CreateUser field.
@@ -16,10 +17,25 @@ func (r *mutationResolver) CreateUser(ctx context.Context, input model.NewUser) 
 	// panic(fmt.Errorf("not implemented: CreateUser - CreateUser"))
 }
 
+// CreateCompany is the resolver for the CreateCompany field.
+func (r *mutationResolver) CreateCompany(ctx context.Context, input model.NewCompany) (*model.Company, error) {
+	panic(fmt.Errorf("not implemented: CreateCompany - CreateCompany"))
+}
+
 // FetchAllUser is the resolver for the fetchAllUser field.
 func (r *queryResolver) FetchAllUser(ctx context.Context) ([]*model.User, error) {
 	return r.Store.Service.ViewUser(ctx)
 	// panic(fmt.Errorf("not implemented: FetchAllUser - fetchAllUser"))
+}
+
+// FetchCompanies is the resolver for the fetchCompanies field.
+func (r *queryResolver) FetchCompanies(ctx context.Context) ([]*model.Company, error) {
+	panic(fmt.Errorf("not implemented: FetchCompanies - fetchCompanies"))
+}
+
+// FetchCompaniesByID is the resolver for the fetchCompaniesById field.
+func (r *queryResolver) FetchCompaniesByID(ctx context.Context, input string) (*model.Company, error) {
+	panic(fmt.Errorf("not implemented: FetchCompaniesByID - fetchCompaniesById"))
 }
 
 // Mutation returns MutationResolver implementation.
