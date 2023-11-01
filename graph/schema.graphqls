@@ -42,10 +42,14 @@ input NewJob{
 type Mutation{
   CreateUser(input: NewUser!): User! 
   CreateCompany(input: NewCompany!): Company!
+  CreateJobForCompany(input:ID!, newJob:[NewJob!]!): [Job]!
 }
 
 type Query{
   fetchAllUser: [User!]!
   fetchCompanies: [Company!]!
   fetchCompaniesById (input:ID!): Company!
+  fetchJobByCompanyId (input:ID!): [Job!]!
+  fetchByJobId (input: ID!): Job!
+  fetchAllJobs: [Job!]!
 }
