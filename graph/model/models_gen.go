@@ -3,9 +3,9 @@
 package model
 
 type Company struct {
-	CompanyID *string `json:"companyId,omitempty"`
-	Name      string  `json:"name"`
-	City      string  `json:"city"`
+	CompanyID string `json:"companyId"`
+	Name      string `json:"name"`
+	City      string `json:"city"`
 }
 
 type Job struct {
@@ -15,10 +15,9 @@ type Job struct {
 }
 
 type NewCompany struct {
-	CompanyID *string   `json:"companyId,omitempty"`
-	Name      string    `json:"name"`
-	City      string    `json:"city"`
-	Jobs      []*NewJob `json:"jobs,omitempty"`
+	Name string    `json:"name"`
+	City string    `json:"city"`
+	Jobs []*NewJob `json:"jobs,omitempty"`
 }
 
 type NewJob struct {

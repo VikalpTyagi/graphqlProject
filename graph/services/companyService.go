@@ -4,6 +4,9 @@ import (
 	gormmodel "assingment/graph/gormModel"
 	"assingment/graph/model"
 	"context"
+	"strconv"
+
+	"gorm.io/gorm"
 )
 
 func (s *DbConnStruct) CreateCompany(newComp model.NewCompany) (*model.Company, error) {
@@ -23,8 +26,9 @@ func (s *DbConnStruct) CreateCompany(newComp model.NewCompany) (*model.Company, 
 	if err != nil {
 		return &model.Company{}, err
 	}
+	strId := strconv.FormatUint(uint64(comp.ID), 10)
 	return &model.Company{
-		CompanyID: &comp.CompanyID,
+		CompanyID: strId,
 		Name:      comp.Name,
 		City:      comp.City,
 	}, nil
@@ -38,14 +42,15 @@ func (s *DbConnStruct) ViewCompanies(ctx context.Context) ([]*model.Company, err
 	if err != nil {
 		return nil, err
 	}
-	
-	for _,comp:= range dataComp{
+
+	for _, comp := range dataComp {
+		cmpId := strconv.FormatUint(uint64(comp.ID), 10)
 		gComp := model.Company{
-			CompanyID: &comp.CompanyID,
-			Name: comp.Name,
-			City: comp.City,
+			CompanyID: cmpId,
+			Name:      comp.Name,
+			City:      comp.City,
 		}
-		listComp= append(listComp,&gComp)
+		listComp = append(listComp, &gComp)
 	}
 	return listComp, nil
 }
@@ -53,14 +58,15 @@ func (s *DbConnStruct) ViewCompanies(ctx context.Context) ([]*model.Company, err
 func (s *DbConnStruct) FetchCompanyByID(ctx context.Context, companyId string) (*model.Company, error) {
 	var compData gormmodel.NewCompany
 	tx := s.db.WithContext(ctx).Where("ID = ?", companyId)
-	err := tx.Find(&compData).Error
+	err := tx.First(&compData).Error
 	if err != nil {
-		return &model.Company{}, err
+		return nil, gorm.ErrRecordNotFound
 	}
+	strId := strconv.FormatUint(uint64(compData.ID), 10)
 	comp := model.Company{
-		CompanyID: &compData.CompanyID,
-		Name: compData.Name,
-		City: compData.City,
+		CompanyID: strId,
+		Name:      compData.Name,
+		City:      compData.City,
 	}
 
 	return &comp, nil
